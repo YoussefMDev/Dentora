@@ -5,13 +5,23 @@ export interface ApiConfig {
 }
 
 export function loadConfig(environment: NodeJS.ProcessEnv = process.env): ApiConfig {
+  const environmentName = environment['NODE_ENV'] ?? 'development';
+  if (!['development', 'test', 'production'].includes(environmentName)) {
+    throw new Error('NODE_ENV must be development, test, or production.');
+  }
+
   const rawPort = environment['API_PORT'] ?? '3000';
   const port = Number(rawPort);
   if (!Number.isInteger(port) || port < 1 || port > 65_535) {
     throw new Error('API_PORT must be a valid TCP port.');
   }
 
-  const webOrigin = environment['WEB_ORIGIN'] ?? 'http://localhost:4200';
+  const webOrigin = environment['WEB_ORIGIN'] ??
+    (environmentName === 'production' ? undefined : 'http://localhost:4200');
+  if (!webOrigin) {
+    throw new Error('WEB_ORIGIN must be configured in production.');
+  }
+
   let parsedOrigin: URL;
   try {
     parsedOrigin = new URL(webOrigin);
@@ -25,9 +35,8 @@ export function loadConfig(environment: NodeJS.ProcessEnv = process.env): ApiCon
     throw new Error('WEB_ORIGIN must be an exact http(s) origin without a path.');
   }
 
-  const environmentName = environment['NODE_ENV'] ?? 'development';
-  if (!['development', 'test', 'production'].includes(environmentName)) {
-    throw new Error('NODE_ENV must be development, test, or production.');
+  if (environmentName === 'production' && parsedOrigin.protocol !== 'https:') {
+    throw new Error('WEB_ORIGIN must use HTTPS in production.');
   }
 
   return {

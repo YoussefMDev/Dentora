@@ -21,3 +21,5 @@
 - Security review and tests for every feature above.
 
 Middleware presence alone does not demonstrate that a system is secure. This document records the current scope and does not assert production readiness.
+
+The follow-up backend security foundation is documented in [backend-foundation.md](backend-foundation.md); it adds validation, safe request logging, and an explicit-store rate-limit factory while leaving feature routes and deployment controls outstanding.

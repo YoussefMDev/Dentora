@@ -83,7 +83,13 @@ describe('security headers', () => {
     const response = await request(app).get('/api/health').expect(200);
     expect(response.headers['x-content-type-options']).toBe('nosniff');
     expect(response.headers['x-frame-options']).toBe('SAMEORIGIN');
-    expect(response.headers['content-security-policy']).toContain("default-src 'self'");
+    const contentSecurityPolicy = response.headers['content-security-policy'];
+    expect(contentSecurityPolicy).toContain("default-src 'self'");
+    expect(contentSecurityPolicy).toContain("object-src 'none'");
+    expect(contentSecurityPolicy).toContain("frame-ancestors 'self'");
+    expect(contentSecurityPolicy).toContain("script-src 'self'");
+    expect(contentSecurityPolicy).toContain("script-src-attr 'none'");
     expect(response.headers['x-powered-by']).toBeUndefined();
+    expect(response.headers['x-request-id']).toMatch(/^[0-9a-f-]{36}$/i);
   });
 });

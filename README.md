@@ -31,6 +31,6 @@ The API health response contains no database or deployment information. This mil
 
 ## Current security scope
 
-Milestone 1 configures request size limits, JSON parsing errors, Helmet headers, exact-origin CORS, and safe generic error responses. Automated tests exercise these behaviors. This is a development foundation, not a production security assessment. Authentication, sessions, CSRF, authorization, endpoint-specific rate limits, booking, uploads, persistent storage, production secrets, and deployment controls remain outstanding.
+The initial backend security foundation adds production-aware origin validation, strict 16 KiB JSON parsing, reusable Zod request validation, request IDs, privacy-limited structured logs, generic categorized errors, tested Helmet headers, and a rate-limit factory that requires an explicit store and failure policy. CORS remains exact-origin and is not an authorization or CSRF control. No feature route has an active production rate limit yet, and the Angular document needs a separate CSP from the API response CSP. This is not a production security assessment. Authentication, sessions, CSRF, authorization, booking, uploads, persistent storage, deployment secrets, proxy/TLS configuration, and operational controls remain outstanding.
 
-See [docs/architecture/overview.md](docs/architecture/overview.md) and [docs/security/milestone-1.md](docs/security/milestone-1.md).
+See [docs/architecture/overview.md](docs/architecture/overview.md), [docs/security/milestone-1.md](docs/security/milestone-1.md), and [docs/security/backend-foundation.md](docs/security/backend-foundation.md).

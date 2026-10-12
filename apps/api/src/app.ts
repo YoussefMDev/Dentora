@@ -1,17 +1,20 @@
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import { errorHandler } from './middleware/error-handler.js';
+import { createErrorHandler } from './middleware/error-handler.js';
+import { requestContext, type LogSink, writeLog } from './middleware/request-context.js';
 import { healthRouter } from './routes/health.js';
 
 export interface AppOptions {
   webOrigin: string;
+  log?: LogSink;
 }
 
-export function createApp({ webOrigin }: AppOptions) {
+export function createApp({ webOrigin, log = writeLog }: AppOptions) {
   const app = express();
 
   app.disable('x-powered-by');
+  app.use(requestContext(log));
   app.use(helmet());
   app.use(
     cors({
@@ -30,7 +33,7 @@ export function createApp({ webOrigin }: AppOptions) {
       error: { code: 'NOT_FOUND', message: 'The requested resource was not found.' },
     });
   });
-  app.use(errorHandler);
+  app.use(createErrorHandler(log));
 
   return app;
 }
