@@ -1,0 +1,14 @@
+<main class="public-page contact-page">
+  <app-page-intro eyebrow="Get in touch · demo" title="We’re here to listen." description="This contact form is an interactive preview. It will not send a message or store your information." />
+  <div class="contact-layout">
+    <aside class="contact-aside"><p class="eyebrow">A note for the demo</p><h2>Good conversations start with a question.</h2><p>For this preview, all contact details and clinic information are intentionally omitted. No real clinic, address, phone number, or opening hours are represented.</p><div class="contact-art" aria-hidden="true"><span>✳</span></div><small>DEMO CLINIC CONCEPT</small></aside>
+    <section class="contact-form-card" aria-label="Demo contact form">
+      @if (submitted()) { <div class="form-success" role="status" aria-live="polite"><span aria-hidden="true">✓</span><h2>Preview complete</h2><p>Your message has not been sent or stored. Thanks for trying the demo interaction.</p><button class="button button-secondary" type="button" (click)="submitted.set(false)">Back to form</button></div> }
+      @else { <form [formGroup]="form" (ngSubmit)="submitDemo()" novalidate><p class="eyebrow">Send a demo message</p><label class="field-label" for="contact-name">Your name</label><input class="form-control" id="contact-name" formControlName="name" maxlength="100" autocomplete="name" aria-describedby="contact-name-error" [attr.aria-invalid]="form.controls.name.touched && form.controls.name.invalid"><p id="contact-name-error" class="field-error" [hidden]="!form.controls.name.touched || !form.controls.name.invalid">Enter a name (up to 100 characters).</p>
+        <label class="field-label" for="contact-email">Email address</label><input class="form-control" id="contact-email" type="email" formControlName="email" maxlength="254" autocomplete="email" aria-describedby="contact-email-error" [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"><p id="contact-email-error" class="field-error" [hidden]="!form.controls.email.touched || !form.controls.email.invalid">Enter a valid email address.</p>
+        <label class="field-label" for="contact-message">How can we help?</label><textarea class="form-control" id="contact-message" rows="5" formControlName="message" maxlength="1000" aria-describedby="contact-message-error contact-hint" [attr.aria-invalid]="form.controls.message.touched && form.controls.message.invalid"></textarea><p id="contact-message-error" class="field-error" [hidden]="!form.controls.message.touched || !form.controls.message.invalid">Add a short message (up to 1,000 characters).</p><small id="contact-hint" class="form-hint">Do not include health or other sensitive personal information in this demo.</small>
+        <button class="button button-primary" type="submit">Preview submission <span aria-hidden="true">↗</span></button>
+      </form> }
+    </section>
+  </div>
+</main>

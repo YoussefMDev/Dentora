@@ -1,0 +1,13 @@
+<main class="public-page">
+  <app-page-intro eyebrow="Demo care menu" title="Care that starts with you." description="Explore illustrative service information. A real clinic would confirm availability, suitability, and fees directly with you." />
+  <section class="service-list content-width" aria-label="Demo dental services">
+    @for (service of services; track service.slug; let index = $index) {
+      <article class="service-row" [class.service-row--reverse]="index % 2 === 1">
+        <div class="service-art" [class]="'service-art service-art--' + service.tone" aria-hidden="true"><span>{{ service.icon }}</span><small>DEMO ILLUSTRATION</small></div>
+        <div class="service-info"><p class="eyebrow">{{ service.category }} · DEMO</p><h2>{{ service.title }}</h2><p>{{ service.summary }}</p><a class="inline-link" [routerLink]="['/services', service.slug]">Explore this service <span aria-hidden="true">→</span></a></div>
+      </article>
+    }
+    <p class="disclaimer">Demo content only. No treatment outcomes, availability, or professional credentials are claimed.</p>
+  </section>
+  <app-section-cta title="Not sure where to begin?" action="Start a demo booking" />
+</main>

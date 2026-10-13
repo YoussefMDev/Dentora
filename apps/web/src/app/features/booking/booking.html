@@ -1,0 +1,39 @@
+<main class="public-page booking-page">
+  <header class="booking-heading"><p class="eyebrow">A demo experience</p><h1>Let’s find a time to talk.</h1><p>This interactive preview does not check availability or create a real appointment.</p></header>
+  @if (confirmed()) {
+    <section class="booking-success" role="status" aria-live="polite"><span class="success-mark" aria-hidden="true">✓</span><p class="eyebrow">Demo complete</p><h2>Your preview request is ready.</h2><p>This is only a demonstration. Nothing was sent or saved, and no appointment has been booked.</p><a routerLink="/booking-status" class="plain-link">See demo booking status <span aria-hidden="true">→</span></a></section>
+  } @else {
+    <section class="wizard" aria-label="Demo appointment request wizard">
+      <ol class="progress-list" aria-label="Booking steps">
+        @for (label of steps; track label; let i = $index) { <li [class.current]="step() === i" [class.complete]="step() > i" [attr.aria-current]="step() === i ? 'step' : null"><span>{{ i + 1 }}</span><b>{{ label }}</b></li> }
+      </ol>
+      <form [formGroup]="form" (ngSubmit)="step() === 3 ? completeDemo() : next()" novalidate>
+        @switch (step()) {
+          @case (0) {
+            <fieldset aria-describedby="service-error"><legend>What would you like to talk about?</legend><p class="step-hint">Choose a demo service to continue.</p><div class="choice-list">
+              @for (service of services; track service.slug) { <label class="choice-card" [class.choice-card--selected]="form.controls.service.value === service.slug"><input type="radio" formControlName="service" [value]="service.slug"><span class="choice-icon" aria-hidden="true">{{ service.icon }}</span><span><strong>{{ service.title }}</strong><small>{{ service.summary }}</small></span><span class="radio-mark" aria-hidden="true"></span></label> }
+            </div><p id="service-error" class="field-error" [hidden]="!form.controls.service.touched || !form.controls.service.invalid">Choose a service to continue.</p></fieldset>
+          }
+          @case (1) {
+            <fieldset><legend>Pick a date and time</legend><p class="step-hint">These example slots are not connected to a clinic calendar.</p>
+              <label class="field-label" for="visit-date">Preferred date</label><input class="form-control" id="visit-date" type="date" formControlName="date" aria-describedby="date-error timezone-note" [attr.aria-invalid]="form.controls.date.touched && form.controls.date.invalid"><p id="date-error" class="field-error" [hidden]="!form.controls.date.touched || !form.controls.date.invalid">Choose a date for this demo.</p>
+              <span id="time-label" class="field-label time-label">Example times</span><div class="time-options" role="group" aria-labelledby="time-label" aria-describedby="time-error">@for (time of times; track time) { <label class="time-option" [class.time-option--selected]="form.controls.time.value === time"><input type="radio" formControlName="time" [value]="time"><span>{{ time }}</span></label> }</div><p id="time-error" class="field-error" [hidden]="!form.controls.time.touched || !form.controls.time.invalid">Choose an example time.</p>
+              <p id="timezone-note" class="timezone-note">Display is illustrative. A real booking flow will use the clinic’s configured local time zone and verify availability on the server.</p>
+            </fieldset>
+          }
+          @case (2) {
+            <fieldset><legend>How can we address you?</legend><p class="step-hint">This preview keeps your entries in this page only. Do not enter real personal or health information.</p>
+              <label class="field-label" for="patient-name">Name</label><input class="form-control" id="patient-name" type="text" autocomplete="name" formControlName="name" maxlength="100" aria-describedby="name-error" [attr.aria-invalid]="form.controls.name.touched && form.controls.name.invalid"><p id="name-error" class="field-error" [hidden]="!form.controls.name.touched || !form.controls.name.invalid">Enter a name (up to 100 characters).</p>
+              <label class="field-label" for="patient-email">Email</label><input class="form-control" id="patient-email" type="email" autocomplete="email" formControlName="email" maxlength="254" aria-describedby="email-error" [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"><p id="email-error" class="field-error" [hidden]="!form.controls.email.touched || !form.controls.email.invalid">Enter a valid email address.</p>
+              <label class="field-label" for="patient-notes">Anything you’d like us to know? <span>(optional)</span></label><textarea class="form-control" id="patient-notes" rows="3" formControlName="notes" maxlength="500" aria-describedby="notes-help"></textarea><small id="notes-help" class="help-text">Please don’t include medical details in this demo.</small>
+            </fieldset>
+          }
+          @case (3) {
+            <section class="review-panel" aria-labelledby="review-heading"><h2 id="review-heading">Review your demo details</h2><dl><div><dt>Service</dt><dd>{{ selectedService() }}</dd></div><div><dt>Preferred date</dt><dd>{{ form.controls.date.value }}</dd></div><div><dt>Example time</dt><dd>{{ form.controls.time.value }}</dd></div><div><dt>Name</dt><dd>{{ form.controls.name.value }}</dd></div><div><dt>Email</dt><dd>{{ form.controls.email.value }}</dd></div></dl><p class="demo-warning">Demo only. Selecting “Finish preview” will not send, store, or book anything.</p></section>
+          }
+        }
+        <div class="wizard-actions">@if (step() > 0) { <button type="button" class="button button-secondary" (click)="back()">Back</button> } @if (step() < 3) { <button type="submit" class="button button-primary">Continue <span aria-hidden="true">→</span></button> } @else { <button type="submit" class="button button-primary">Finish preview <span aria-hidden="true">✓</span></button> }</div>
+      </form>
+    </section>
+  }
+</main>

@@ -1,0 +1,6 @@
+.section-cta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin: 0 var(--page-gutter) 5rem; padding: clamp(1.5rem, 5vw, 3.5rem); border-radius: var(--radius-lg); background: var(--color-lime); }
+.section-cta p { margin: 0 0 0.55rem; color: #51642c; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+.section-cta h2 { max-width: 16ch; margin: 0; font-size: clamp(1.6rem, 3vw, 2.8rem); letter-spacing: -0.06em; line-height: 1.08; }
+.button { display: inline-flex; min-height: 3rem; flex-shrink: 0; align-items: center; gap: 1rem; padding: 0.7rem 1.1rem; border-radius: 999px; background: var(--color-navy); color: white; font-size: 0.8rem; font-weight: 800; text-decoration: none; }
+.button span { color: var(--color-lime); }
+@media (max-width: 42rem) { .section-cta { align-items: flex-start; flex-direction: column; margin-bottom: 3rem; } }

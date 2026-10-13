@@ -1,15 +1,12 @@
-:host {
-  display: block;
-  color: #142b46;
-  font-family: Arial, sans-serif;
-}
-
-main {
-  max-width: 48rem;
-  margin: 4rem auto;
-  padding: 0 1.5rem;
-}
-
-h1 {
-  margin-bottom: 0.5rem;
-}
+:host { display: block; min-height: 100vh; }
+.site-footer { padding: 1.5rem var(--page-gutter); border-top: 1px solid var(--color-line); color: var(--color-muted); font-size: 0.78rem; }
+.footer-inner { display: flex; width: min(100%, var(--content-width)); align-items: center; justify-content: space-between; gap: 1rem; margin: 0 auto; }
+.demo-label { margin-left: 0.5rem; color: var(--color-muted); }
+.footer-links { display: inline-flex; gap: 1rem; }
+.footer-links a { color: var(--color-muted); text-decoration: none; }
+.footer-links a:hover { color: var(--color-navy); text-decoration: underline; }
+.api-status { display: inline-flex; align-items: center; gap: 0.4rem; }
+.status-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #d5a62b; }
+.api-status--ok .status-dot { background: var(--color-success); }
+.api-status--error .status-dot { background: var(--color-danger); }
+@media (max-width: 36rem) { .footer-inner { align-items: flex-start; flex-direction: column; }.footer-links { flex-wrap: wrap; } }

@@ -1,4 +1,12 @@
-<main>
-  <h1>Dentora</h1>
-  <p>API status: <span data-testid="api-status">{{ health() }}</span></p>
-</main>
+<app-site-header />
+<router-outlet />
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 Dentora <span class="demo-label">Demo clinic concept</span></span>
+    <nav class="footer-links" aria-label="Footer navigation"><a routerLink="/booking-status">Demo booking status</a><a routerLink="/contact">Contact</a></nav>
+    <span class="api-status" [class.api-status--ok]="health() === 'ok'" [class.api-status--error]="health() === 'unavailable'" role="status" aria-live="polite">
+      <span class="status-dot" aria-hidden="true"></span>
+      API status: <span data-testid="api-status">{{ health() === 'loading' ? 'Loading…' : health() }}</span>
+    </span>
+  </div>
+</footer>

@@ -1,0 +1,14 @@
+<main class="public-page detail-page">
+  @if (service(); as item) {
+    <div class="detail-wrap">
+      <a class="back-link" routerLink="/services">← All demo services</a>
+      <section class="detail-hero">
+        <div><p class="eyebrow">{{ item.category }} · DEMO INFORMATION</p><h1>{{ item.title }}</h1><p class="lead">{{ item.description }}</p><div class="duration">Illustrative visit length: <strong>{{ item.duration }}</strong></div><a class="button" routerLink="/book">Explore the demo booking <span aria-hidden="true">↗</span></a></div>
+        <div class="detail-art" [class]="'detail-art detail-art--' + item.tone" role="img" [attr.aria-label]="'Abstract illustration for ' + item.title"><span>{{ item.icon }}</span><small>DEMO ILLUSTRATION</small></div>
+      </section>
+      <section class="detail-notes"><h2>What a conversation could cover</h2><ul>@for (note of item.details; track note) { <li>{{ note }}</li> }</ul><p>This is general demo copy, not medical advice or a guarantee of care or outcomes.</p></section>
+    </div>
+  } @else {
+    <section class="not-found"><p class="eyebrow">Service not found</p><h1>That demo service isn’t here.</h1><p>Choose from the available illustrative service pages.</p><a class="button" routerLink="/services">View services</a></section>
+  }
+</main>

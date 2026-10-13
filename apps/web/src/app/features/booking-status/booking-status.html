@@ -1,0 +1,14 @@
+<main class="public-page status-page">
+  <app-page-intro eyebrow="Booking status · demo" title="A clear next step." description="This page is an interface preview only. It is not connected to real appointments or patient records." />
+  <section class="status-card">
+    <form [formGroup]="form" (ngSubmit)="showDemo()" novalidate>
+      <label class="field-label" for="reference">Demo reference</label><input id="reference" class="form-control" type="text" formControlName="reference" maxlength="40" autocomplete="off" aria-describedby="reference-hint reference-error" [attr.aria-invalid]="form.controls.reference.touched && form.controls.reference.invalid">
+      <small id="reference-hint">Enter any short reference to view the sample status. Do not enter a real booking code or personal information.</small>
+      @if (form.controls.reference.touched && form.controls.reference.invalid) { <p id="reference-error" class="field-error">Enter a demo reference.</p> }
+      <button class="button" type="submit">Show demo status <span aria-hidden="true">→</span></button>
+    </form>
+    @if (searched()) { <div class="status-result" role="status" aria-live="polite"><p class="eyebrow">Example only</p><h2>Pending review</h2><p>This sample request is awaiting a clinic team review. No appointment exists and no status was looked up or saved.</p><span class="reference-chip">DEMO · {{ form.controls.reference.value }}</span></div> }
+    <p class="status-note">A real booking-status service would need secure, unguessable access and server verification. This demo does not provide that.</p>
+    <a routerLink="/book" class="back-link">Start the booking UI preview <span aria-hidden="true">↗</span></a>
+  </section>
+</main>
