@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { Home } from './home';
 
 describe('Home', () => {
-  it('renders the homepage hero and clearly labels the temporary visual', async () => {
+  it('renders the homepage hero and identifies the illustrative stock photo', async () => {
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [provideRouter([])],
@@ -15,7 +15,10 @@ describe('Home', () => {
     const page = fixture.nativeElement as HTMLElement;
 
     expect(page.querySelector('h1')?.textContent).toContain('A healthier smile');
-    expect(page.textContent).toContain('Temporary visual placeholder');
-    expect(page.textContent).toContain('Demo service descriptions');
+    expect(page.textContent).toContain('Illustrative stock photo');
+    expect(page.textContent).toContain('Illustrative demo content only');
+    expect(page.querySelectorAll('.service-card')).toHaveLength(6);
+    expect(page.querySelector('#technology-title')?.textContent).toContain('Technology');
+    expect(page.querySelector('.technology-section a')?.getAttribute('href')).toContain('/services');
   });
 });

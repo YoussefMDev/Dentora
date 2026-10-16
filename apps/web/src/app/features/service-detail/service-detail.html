@@ -1,14 +1,24 @@
 <main class="public-page detail-page">
   @if (service(); as item) {
     <div class="detail-wrap">
-      <a class="back-link" routerLink="/services">← All demo services</a>
-      <section class="detail-hero">
-        <div><p class="eyebrow">{{ item.category }} · DEMO INFORMATION</p><h1>{{ item.title }}</h1><p class="lead">{{ item.description }}</p><div class="duration">Illustrative visit length: <strong>{{ item.duration }}</strong></div><a class="button" routerLink="/book">Explore the demo booking <span aria-hidden="true">↗</span></a></div>
-        <div class="detail-art" [class]="'detail-art detail-art--' + item.tone" role="img" [attr.aria-label]="'Abstract illustration for ' + item.title"><span>{{ item.icon }}</span><small>DEMO ILLUSTRATION</small></div>
+      <a class="back-link" routerLink="/services"><span aria-hidden="true">←</span> Explore all demo services</a>
+      <section class="detail-hero" aria-labelledby="service-title">
+        <div class="detail-copy"><p class="eyebrow">{{ item.category }} · DEMO INFORMATION</p><h1 id="service-title">{{ item.title }}</h1><p class="lead">{{ item.description }}</p><p class="demo-label">General educational content only. This page is not a diagnosis or individualized medical advice.</p><a class="button" routerLink="/book">Explore the demo booking <span aria-hidden="true">↗</span></a></div>
+        <figure class="detail-photo"><img src="/images/clinic-room-monitor.webp" [alt]="'Unoccupied dental room shown as illustrative stock photography for ' + item.title + '; not Dentora premises.'" width="1600" height="1067" loading="lazy" decoding="async"><figcaption>Illustrative stock photo · not Dentora premises</figcaption></figure>
       </section>
-      <section class="detail-notes"><h2>What a conversation could cover</h2><ul>@for (note of item.details; track note) { <li>{{ note }}</li> }</ul><p>This is general demo copy, not medical advice or a guarantee of care or outcomes.</p></section>
+
+      <section class="overview-panel" aria-labelledby="overview-title"><p class="eyebrow">An overview</p><h2 id="overview-title">A place to start your questions.</h2><p>{{ item.overview }}</p></section>
+
+      <div class="detail-columns">
+        <section class="detail-card" aria-labelledby="reasons-title"><p class="eyebrow">For general information</p><h2 id="reasons-title">Reasons to talk with a dentist</h2><p class="supporting-copy">People may bring different questions to a visit. These examples are not a checklist for diagnosing a condition.</p><ul>@for (reason of item.commonReasons; track reason) { <li>{{ reason }}</li> }</ul></section>
+        <section class="detail-card detail-card--navy" aria-labelledby="consultation-title"><p class="eyebrow">A conversation may include</p><h2 id="consultation-title">What a consultation could cover</h2><ul>@for (step of item.consultation; track step) { <li>{{ step }}</li> }</ul><p class="small-note">A professional decides what assessment is appropriate for each person.</p></section>
+      </div>
+
+      <section class="detail-faq" aria-labelledby="detail-faq-title"><div><p class="eyebrow">More to know</p><h2 id="detail-faq-title">Common questions.</h2></div><div class="faq-list">@for (faq of item.faqs; track faq.question) { <details><summary>{{ faq.question }}</summary><p>{{ faq.answer }}</p></details> }</div></section>
+
+      <section class="detail-bottom"><div><p class="eyebrow">Your next step</p><h2>Bring your questions to a real professional.</h2><p>This clinic website and its booking flow are demonstrations. Nothing is sent or saved.</p></div><div class="bottom-actions"><a class="button button-light" routerLink="/book">Explore demo booking <span aria-hidden="true">↗</span></a><a class="contact-link" routerLink="/services">Back to all service areas <span aria-hidden="true">→</span></a></div></section>
     </div>
   } @else {
-    <section class="not-found"><p class="eyebrow">Service not found</p><h1>That demo service isn’t here.</h1><p>Choose from the available illustrative service pages.</p><a class="button" routerLink="/services">View services</a></section>
+    <section class="not-found" aria-labelledby="not-found-title"><p class="eyebrow">Service not found</p><h1 id="not-found-title">That demo service isn’t here.</h1><p>Choose from the available educational demo pages. The address may be incomplete or outdated.</p><a class="button" routerLink="/services">View demo services <span aria-hidden="true">↗</span></a></section>
   }
 </main>

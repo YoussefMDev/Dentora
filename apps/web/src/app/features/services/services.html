@@ -1,13 +1,72 @@
-<main class="public-page">
-  <app-page-intro eyebrow="Demo care menu" title="Care that starts with you." description="Explore illustrative service information. A real clinic would confirm availability, suitability, and fees directly with you." />
-  <section class="service-list content-width" aria-label="Demo dental services">
-    @for (service of services; track service.slug; let index = $index) {
-      <article class="service-row" [class.service-row--reverse]="index % 2 === 1">
-        <div class="service-art" [class]="'service-art service-art--' + service.tone" aria-hidden="true"><span>{{ service.icon }}</span><small>DEMO ILLUSTRATION</small></div>
-        <div class="service-info"><p class="eyebrow">{{ service.category }} · DEMO</p><h2>{{ service.title }}</h2><p>{{ service.summary }}</p><a class="inline-link" [routerLink]="['/services', service.slug]">Explore this service <span aria-hidden="true">→</span></a></div>
-      </article>
-    }
-    <p class="disclaimer">Demo content only. No treatment outcomes, availability, or professional credentials are claimed.</p>
+<main class="public-page services-page">
+  <section class="services-hero content-width" aria-labelledby="services-title">
+    <div class="hero-copy">
+      <p class="eyebrow">The Dentora demo care guide</p>
+      <h1 id="services-title">A clearer path<br>to <span>care.</span></h1>
+      <p class="hero-lead">Explore common areas of dentistry, understand the kinds of questions you can bring to a visit, and take your next step at your own pace.</p>
+      <p class="demo-note">Illustrative information for a clinic concept. A real clinic would confirm availability, suitability, and fees.</p>
+      <div class="hero-actions"><a class="button button-primary" routerLink="/book">Explore demo booking <span aria-hidden="true">↗</span></a><a class="text-link" href="#care-categories">Explore service areas <span aria-hidden="true">↓</span></a></div>
+    </div>
+    <figure class="hero-photo">
+      <img src="/images/clinic-room-lights.webp" alt="Unoccupied dental treatment room with an exam chair and overhead light; illustrative stock photography, not Dentora premises." width="1400" height="2100" loading="lazy" decoding="async">
+      <figcaption>Illustrative stock photo · not Dentora premises</figcaption>
+    </figure>
   </section>
-  <app-section-cta title="Not sure where to begin?" action="Start a demo booking" />
+
+  <section class="category-section content-width" id="care-categories" aria-labelledby="categories-title">
+    <div class="section-heading"><div><p class="eyebrow">Explore by area</p><h2 id="categories-title">Care is easier to explore<br>one question at a time.</h2></div><p>These categories organize general information. They are not a list of confirmed clinic offerings or a substitute for professional advice.</p></div>
+    <div class="category-grid">
+      @for (category of categories; track category.id; let index = $index) {
+        <article class="category-card" [class]="'category-card category-card--' + category.tone" [id]="category.id">
+          <div class="category-top"><span class="category-index">0{{ index + 1 }} / DEMO</span><span class="category-icon" aria-hidden="true">{{ category.icon }}</span></div>
+          <h3>{{ category.title }}</h3><p>{{ category.summary }}</p>
+          <ul aria-label="Related demo information">
+            @for (service of category.services; track service.slug) { <li><a [routerLink]="['/services', service.slug]">{{ service.title }} <span aria-hidden="true">↗</span></a></li> }
+          </ul>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="treatment-section" aria-labelledby="treatments-title">
+    <div class="content-width">
+      <div class="section-heading treatment-heading"><div><p class="eyebrow">A closer look</p><h2 id="treatments-title">Topics to bring<br>to a conversation.</h2></div><p>Browse the educational demo pages below. Each one offers general context about what a conversation with a dental professional may cover.</p></div>
+      <div class="treatment-grid">
+        @for (service of services; track service.slug; let index = $index) {
+          <article class="treatment-card"><span class="treatment-number">0{{ index + 1 }}</span><p class="eyebrow">{{ service.category }} · DEMO</p><h3>{{ service.title }}</h3><p>{{ service.summary }}</p><a [routerLink]="['/services', service.slug]">Read the overview <span aria-hidden="true">↗</span></a></article>
+        }
+      </div>
+      <p class="medical-note">This educational demo does not diagnose conditions, recommend individual treatment, or promise outcomes. Speak with a qualified dental professional about your circumstances.</p>
+    </div>
+  </section>
+
+  <section class="approach-section content-width" aria-labelledby="approach-title">
+    <div class="approach-intro"><p class="eyebrow">The Dentora approach</p><h2 id="approach-title">Good care starts<br>with being heard.</h2><p>These are principles for the demo experience, not claims about a real clinic or a particular clinician.</p></div>
+    <div class="approach-list">
+      <article><span>01</span><div><h3>Make room for questions</h3><p>Understand the concern first. Clear conversation helps people take part in decisions about their care.</p></div></article>
+      <article><span>02</span><div><h3>Move at a comfortable pace</h3><p>People should be able to ask for an explanation, pause, and understand what a proposed next step means.</p></div></article>
+      <article><span>03</span><div><h3>Explain options transparently</h3><p>A real professional should discuss relevant choices, considerations, and costs before care is agreed.</p></div></article>
+    </div>
+  </section>
+
+  <section class="first-visit-section" aria-labelledby="visit-title">
+    <div class="content-width visit-layout">
+      <figure class="visit-photo"><img src="/images/treatment-room.webp" alt="Empty dental consultation room; illustrative stock photography, not Dentora premises." width="1800" height="1200" loading="lazy" decoding="async"><figcaption>Stock room image · illustrative example only</figcaption></figure>
+      <div class="visit-copy"><p class="eyebrow">Your first visit</p><h2 id="visit-title">A good first step<br>is a conversation.</h2><p>Every clinic works differently. In this demo, a first visit is shown as a simple conversation followed by any assessment the clinician considers appropriate.</p>
+        <ol><li><span>01</span><div><h3>Share what brings you in</h3><p>Talk through your questions and any concerns in your own words.</p></div></li><li><span>02</span><div><h3>Understand the assessment</h3><p>A professional can explain what they recommend and why before proceeding.</p></div></li><li><span>03</span><div><h3>Agree on next steps</h3><p>Take time to understand the options and decide what feels right for you.</p></div></li></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section content-width" aria-labelledby="faq-title">
+    <div class="faq-heading"><p class="eyebrow">Good to know</p><h2 id="faq-title">Common questions.</h2><p>General answers for this demo experience. A real clinic can answer questions about its own services.</p></div>
+    <div class="faq-list">
+      <details><summary>Does Dentora provide these services?</summary><p>Dentora is a demo project. The topics illustrate how a clinic website could organize educational information; no specific clinic service or availability is confirmed here.</p></details>
+      <details><summary>Can this information tell me which treatment I need?</summary><p>No. Only a qualified dental professional who assesses your situation can discuss an individual diagnosis or care plan. This content is general education, not medical advice.</p></details>
+      <details><summary>How can I ask about a real appointment?</summary><p>The booking and contact pages in this project are demonstrations. They do not send or save requests. Contact a real clinic directly to arrange care.</p></details>
+      <details><summary>What if my concern feels urgent?</summary><p>Contact a real local dental service for advice. If you believe there is an immediate, life-threatening emergency, contact your local emergency services.</p></details>
+    </div>
+  </section>
+
+  <section class="services-final content-width" aria-labelledby="services-final-title"><div><p class="eyebrow">Your next step</p><h2 id="services-final-title">Start with what you want to know.</h2><p>Explore the demo booking flow or send a demo contact message. Nothing is sent or saved.</p></div><div class="final-actions"><a class="button button-light" routerLink="/book">Explore demo booking <span aria-hidden="true">↗</span></a><a class="final-contact" routerLink="/contact">Visit demo contact page <span aria-hidden="true">→</span></a></div></section>
 </main>

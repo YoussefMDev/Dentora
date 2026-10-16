@@ -9,7 +9,7 @@ import { PageIntro } from '../../shared/page-intro/page-intro';
   styleUrl: './gallery.scss',
 })
 export class Gallery {
-  protected readonly categories = ['All', 'Studio', 'Smile details', 'Care'] as const;
+  protected readonly categories = ['All', 'Studio', 'Clinical details', 'Care experience'] as const;
   protected readonly selected = signal<(typeof this.categories)[number]>('All');
   protected readonly items = computed(() => {
     const category = this.selected();

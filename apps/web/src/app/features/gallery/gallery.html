@@ -1,7 +1,7 @@
 <main class="public-page">
-  <app-page-intro eyebrow="The Dentora gallery · demo" title="A little inspiration, thoughtfully imagined." description="Browse illustrative scenes and abstract artwork. This preview contains no patient images, before-and-after photos, or claims about treatment outcomes." />
-  <section class="gallery-wrap" aria-label="Illustrative gallery preview">
-    <div class="filters" role="group" aria-label="Filter gallery illustrations">
+  <app-page-intro eyebrow="The Dentora gallery · demo" title="A little inspiration, thoughtfully imagined." description="Browse licensed stock photos of empty dental rooms and equipment. These images are for visual reference only; no patient images, before-and-after photos, or Dentora facilities are represented." />
+  <section class="gallery-wrap" aria-label="Illustrative stock photo gallery">
+    <div class="filters" role="group" aria-label="Filter illustrative stock photos">
       @for (category of categories; track category) {
         <button type="button" class="filter-button" [class.filter-button--active]="selected() === category" [attr.aria-pressed]="selected() === category" (click)="choose(category)">{{ category }}</button>
       }
@@ -9,7 +9,7 @@
     <div class="gallery-grid" aria-live="polite">
       @for (item of items(); track trackItem($index, item); let i = $index) {
         <article class="gallery-card" [class.gallery-card--tall]="i % 3 === 0">
-          <div class="gallery-art" [class]="'gallery-art gallery-art--' + item.art" role="img" [attr.aria-label]="item.caption"><span class="art-shape art-shape-one"></span><span class="art-shape art-shape-two"></span><span class="art-label">ILLUSTRATIVE PLACEHOLDER</span></div>
+          <img class="gallery-image" [src]="item.image" [alt]="item.imageAlt" width="1400" height="1000" loading="lazy" decoding="async">
           <div class="gallery-card-copy"><div><p>{{ item.category }} · Demo</p><h2>{{ item.title }}</h2></div><span aria-hidden="true">↗</span></div>
           <p class="gallery-caption">{{ item.caption }}</p>
         </article>

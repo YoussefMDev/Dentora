@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { demoServices } from '../content/demo-content';
-import { PageIntro } from '../../shared/page-intro/page-intro';
-import { SectionCta } from '../../shared/section-cta/section-cta';
+import { demoServiceCategories, demoServices } from '../content/demo-content';
 
 @Component({
   selector: 'app-services-page',
-  imports: [PageIntro, SectionCta, RouterLink],
+  imports: [RouterLink],
   templateUrl: './services.html',
-  styleUrl: './services.scss',
+  styleUrls: ['./services.scss', './services-content.scss'],
 })
 export class Services {
   protected readonly services = demoServices;
+  protected readonly categories = demoServiceCategories.map((category) => ({
+    ...category,
+    services: demoServices.filter((service) => service.categoryId === category.id),
+  }));
 }

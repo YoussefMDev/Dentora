@@ -6,14 +6,14 @@ This document records the security behaviors implemented in the backend foundati
 
 - Local development keeps the existing `API_PORT` and `WEB_ORIGIN` defaults.
 - Production startup requires an explicit exact `WEB_ORIGIN` and requires its scheme to be HTTPS. Configuration errors contain fixed messages and do not print environment values.
-- No secret is required or stored in source control in this milestone. `.env` files remain ignored. Future credentials must come from the selected hosting platform's secret manager or protected environment configuration, never from frontend configuration or logs.
+- `MONGODB_URI` is required for development and production API startup and is never included in configuration errors. Use shell environment variables locally and the selected hosting platform's secret manager in deployment. `.env` files remain ignored; do not commit credentials or put them in Angular configuration or logs. Explicit `NODE_ENV=test` may omit the URI because tests do not connect to a database.
 - The API still binds to the existing local address. Host binding, TLS termination, and trusted proxy settings need a hosting-specific review before deployment.
 
 ## Parsing and validation
 
 - JSON parsing remains strict and limited to 16 KiB.
 - Malformed JSON and oversized bodies return generic 400 and 413 responses.
-- Request schemas use Zod at runtime. TypeScript types alone do not validate network input.
+- Request schemas use Zod at runtime. The API is JavaScript; static types in the Angular/contracts workspaces do not validate network input.
 - Object schemas must use `z.strictObject(...)` at every object level where unknown keys must be rejected. The validation middleware does not modify `request.body`; handlers read the parsed value from `response.locals['validatedBody']`. Any trimming, coercion, defaults, or transformations must be intentional in the schema and covered by tests.
 - Validation errors return a generic message without field values or schema details.
 
@@ -41,4 +41,4 @@ This document records the security behaviors implemented in the backend foundati
 
 ## Still outstanding
 
-Authentication, server-managed sessions, CSRF, Admin/Staff authorization, MFA, account recovery and invitation flows, route-specific schemas and quotas, booking, uploads, database access, audit events, production secret management, HTTPS/proxy setup, operational monitoring, and deployment are not implemented here. Each needs its own threat review and behavior-based tests. Dependency audit results are point-in-time checks, not a guarantee that dependencies remain vulnerability-free.
+Authentication, server-managed sessions, CSRF, Admin/Staff authorization, MFA, account recovery and invitation flows, route-specific schemas and quotas, booking, uploads, patient data, audit events, production secret-management integration, HTTPS/proxy setup, operational monitoring, and deployment are not implemented here. Mongoose schemas now describe staff accounts, invitations, and recovery tokens, but no workflow uses them; schema validation alone does not enforce authorization, token expiry, single use, or unique indexes on Atlas. The database connection and model definitions do not mean production readiness. Each future feature needs its own threat review and behavior-based tests. Dependency audit results are point-in-time checks, not a guarantee that dependencies remain vulnerability-free.

@@ -11,13 +11,9 @@
       <div class="hero-note"><span class="note-star" aria-hidden="true">✳</span><span>Good care begins with a conversation.</span></div>
     </div>
 
-    <div class="hero-visual" role="img" aria-label="Temporary abstract illustration representing a calm, bright dental studio">
-      <div class="sun-disc"></div>
-      <div class="arch arch-back"></div>
-      <div class="arch arch-front"></div>
-      <div class="plant plant-one"><i></i><i></i><i></i><i></i><b></b></div>
-      <div class="plant plant-two"><i></i><i></i><i></i><b></b></div>
-      <div class="visual-caption"><span class="caption-dot"></span> Temporary visual placeholder</div>
+    <div class="hero-visual">
+      <img class="hero-image" src="/images/clinic-room-monitor.webp" alt="Empty dental treatment room with an exam chair and monitor; illustrative stock photography, not Dentora premises." width="1600" height="1067" fetchpriority="high">
+      <div class="visual-caption"><span class="caption-dot"></span> Illustrative stock photo · not Dentora premises</div>
       <span class="visual-tag">A little more at ease <span aria-hidden="true">✳</span></span>
     </div>
   </section>
@@ -29,14 +25,32 @@
 
   <section class="services-preview page-width" aria-labelledby="care-title">
     <div class="section-heading">
-      <div><p class="eyebrow">Your care, your pace</p><h2 id="care-title">A brighter kind<br>of dentistry.</h2></div>
-      <a class="text-link" routerLink="/services">View all services <span aria-hidden="true">→</span></a>
+      <div><p class="eyebrow">A thoughtful place to begin</p><h2 id="care-title">Care for every<br>kind of question.</h2><p class="section-intro">Explore the areas of care in this clinic concept. Start with what you would like to understand, then bring your questions to a dental professional.</p></div>
+      <a class="text-link" routerLink="/services">Explore the care guide <span aria-hidden="true">→</span></a>
     </div>
-    <div class="service-cards">
-      <article class="service-card service-card--lime"><span class="card-index">01 / PREVENTIVE</span><span class="card-icon" aria-hidden="true">✳</span><h3>Everyday care</h3><p>Thoughtful checkups and cleanings to help keep your smile feeling its best.</p><a routerLink="/services" aria-label="Explore everyday care">Explore care <span aria-hidden="true">↗</span></a></article>
-      <article class="service-card service-card--white"><span class="card-index">02 / RESTORATIVE</span><span class="card-icon" aria-hidden="true">◌</span><h3>Restore & renew</h3><p>Personalized options, explained clearly, so you can choose what feels right.</p><a routerLink="/services" aria-label="Explore restorative care">Explore care <span aria-hidden="true">↗</span></a></article>
-      <article class="service-card service-card--navy"><span class="card-index">03 / COSMETIC</span><span class="card-icon" aria-hidden="true">⌁</span><h3>Confidence, naturally</h3><p>Have a goal in mind? Start with a conversation about your options.</p><a routerLink="/services" aria-label="Explore cosmetic care">Explore care <span aria-hidden="true">↗</span></a></article>
+    <div class="service-cards" aria-label="Demo care categories">
+      @for (category of serviceCategories; track category.id; let index = $index) {
+        <article class="service-card" [class]="'service-card service-card--' + category.tone">
+          <span class="card-index">0{{ index + 1 }} / DEMO CATEGORY</span><span class="card-icon" aria-hidden="true">{{ category.icon }}</span>
+          <h3>{{ category.title }}</h3><p>{{ category.summary }}</p>
+          <a [routerLink]="['/services', category.serviceSlugs[0]]" [attr.aria-label]="'Read about ' + category.title">Explore this area <span aria-hidden="true">↗</span></a>
+        </article>
+      }
     </div>
-    <p class="demo-disclaimer">Demo service descriptions for layout preview. Treatment availability and outcomes are not represented.</p>
+    <div class="services-transition"><p class="demo-disclaimer">Illustrative demo content only. A real clinic would confirm availability, suitability, and fees; no outcomes are promised.</p><a class="all-services-link" routerLink="/services">Browse all demo services <span aria-hidden="true">↗</span></a></div>
+  </section>
+
+  <section class="technology-section page-width" aria-labelledby="technology-title">
+    <figure class="technology-photo">
+      <img src="/images/dental-equipment.webp" alt="Dental equipment console and instruments in an empty room; illustrative stock photography, not confirmed Dentora equipment." width="1500" height="1000" loading="lazy" decoding="async">
+      <figcaption>Illustrative stock photo · equipment and premises are not verified Dentora facilities</figcaption>
+    </figure>
+    <div class="technology-copy">
+      <p class="eyebrow">A considered care experience</p>
+      <h2 id="technology-title">Technology<br>&amp; comfort.</h2>
+      <p>Every clinic uses different rooms and tools. What matters in this concept is that people understand what to expect, have time to ask questions, and can consider their options at a comfortable pace.</p>
+      <p class="technology-disclaimer">The image is an illustrative stock photograph and does not represent confirmed Dentora equipment or premises.</p>
+      <a class="text-link" routerLink="/services">Explore the demo care guide <span aria-hidden="true">→</span></a>
+    </div>
   </section>
 </main>
